@@ -1,8 +1,12 @@
 
 <template>
-<router-view></router-view>
+    <HeaderCompo/>
+    <router-view></router-view>
+    <FooterCompo />
 </template>
-<script>
+<script setup>
+import HeaderCompo from './components/HeaderCompo.vue'
+import FooterCompo from './components/FooterCompo.vue'
 
 </script>
 <style>
