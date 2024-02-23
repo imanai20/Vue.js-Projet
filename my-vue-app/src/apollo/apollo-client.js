@@ -1,0 +1,18 @@
+// src/apollo-client.js
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core';
+
+const httpLink = createHttpLink({
+  uri: 'https://api-eu-central-1-shared-euc1-02.hygraph.com/v2/clsydbtce15mb0hw6ziiwy4c8/master',
+  headers: {
+    'Authorization': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImdjbXMtbWFpbi1wcm9kdWN0aW9uIn0.eyJ2ZXJzaW9uIjozLCJpYXQiOjE3MDg2ODUwOTIsImF1ZCI6WyJodHRwczovL2FwaS1ldS1jZW50cmFsLTEtc2hhcmVkLWV1YzEtMDIuaHlncmFwaC5jb20vdjIvY2xzeWRidGNlMTVtYjBodzZ6aWl3eTRjOC9tYXN0ZXIiLCJtYW5hZ2VtZW50LW5leHQuZ3JhcGhjbXMuY29tIl0sImlzcyI6Imh0dHBzOi8vbWFuYWdlbWVudC1ldS1jZW50cmFsLTEtc2hhcmVkLWV1YzEtMDIuaHlncmFwaC5jb20vIiwic3ViIjoiZDM5ZTM0NWItZDdlMy00OTZkLWI4NDYtNzdmMGIzZWVkNjk1IiwianRpIjoiY2xzeWl6ajBoMDFvNjA3dzc0dXJ4OTE0MCJ9.3TF7tyrn8-19uLhZ2Z8Pu4-9sEs0F-32-EdgcYEU9cgPLLBYWmsO6aCHyMk8NChrADYRoo_iyVJaJAJVRJX3bZwRDaGroe4vIXmkVNekbZwOKF54Bepk-bMJyFW92o8OAA0aL_nDA2MzERwY2ugOFhkW3ykfADO4DLjj85TylnXXJy1NL45K-_Rh0w_Rf6OBtGYC_lk_seQu-FaN0WAmvaBjOp944-rbKTE-jdTYUAt3iefmFUckG2RQETyjCXqK_Ue0llcVQ2jYjj0svxQlXgEfjvEEuaHCbaHwS8_YbWhB4COLEo1rakaGuuzFnZsYsDTprqbW7P8PV5tPL5LqwFkPeUN2sZZAqzS6lIepIqzOsQqYZ2f5uke1edkmDemMxousWzE34DUOsLe4uV4FWdM4V8nuaowjnof5letTq9andusfKnfagAYncoxL57YhqemHUaJst_QwlemgBwHxul-RLG7x8OOWtlJnhK9U4OoHLEdeW_n_-WymUunGPcSsxmfotGw2C_fnE1jmcXhz5RCnaS2h5JAW-msmdy48eFWEncKp8G8wD05H2Up43V1W-wxGF0Nrs0yzjlJaSsIjB3-mWKPwa4pmlvUGWPNIKZlAp7dVLKpnbjHcsc_iYhPD66YjhVgQpzow0pAhyfVNg6-9S8pqZMcK8Z07z5wG6EM' // Remplacez VOTRE_TOKEN_API par votre token réel
+  },
+});
+
+const cache = new InMemoryCache();
+
+const apolloClient = new ApolloClient({
+  link: httpLink,
+  cache: cache,
+});
+
+export default apolloClient;
