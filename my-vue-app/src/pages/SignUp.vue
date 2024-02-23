@@ -10,54 +10,51 @@
   </template>
   
   <script>
-  import apolloClient from '../apollo/apollo-client'; // Assurez-vous que le chemin est correct
-  import gql from 'graphql-tag';
+import { SHA256 } from 'crypto-js';
+import apolloClient from '../apollo/apollo-client';
+import gql from 'graphql-tag';
+
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      nom: '',
+      prenom: '',
+      dateDeNaissance: ''
+    };
+  },
+  methods: {
+    signup() {
+  const hashedPassword = SHA256(this.password).toString();
   
-  export default {
-    data() {
-      return {
-        email: '',
-        password: '',
-        nom: '',
-        prenom: '',
-        dateDeNaissance: '' // Assurez-vous que cette date est au format 'YYYY-MM-DD'
-      };
-    },
-    methods: {
-      signup() {
-        const mutation = gql`
-          mutation SignupUser($email: String!, $password: String!, $nom: String!, $prenom: String!, $dateDeNaissance: Date!) {
-            createLoginUser(data: { email: $email, password: $password, nom: $nom, prenom: $prenom, dateDeNaissance: $dateDeNaissance }) {
-              id
-            }
-          }
-        `;
-        apolloClient.mutate({
-          mutation,
-          variables: {
-            email: this.email,
-            password: this.password,
-            nom: this.nom,
-            prenom: this.prenom,
-            dateDeNaissance: this.dateDeNaissance
-          }
-        })
-        .then(response => {
-          console.log('Signup successful:', response.data.createLoginUser);
-          this.$router.push('/login');
-        })
-        .catch(error => {
-          console.error('Error on signup:', error);
-          if (error.graphQLErrors && error.graphQLErrors.length > 0) {
-            console.error('GraphQL Errors:', error.graphQLErrors);
-          } else if (error.networkError) {
-            console.error('Network Error:', error.networkError);
-          } else if (error.message) {
-            console.error('Error Message:', error.message);
-          }
-        });
+  const mutation = gql`
+    mutation SignupUser($email: String!, $password: String!, $nom: String!, $prenom: String!, $dateDeNaissance: Date!) {
+      createLoginUser(data: { email: $email, password: $password, nom: $nom, prenom: $prenom, dateDeNaissance: $dateDeNaissance }) {
+        id
       }
     }
-  };
-  </script>
-  
+  `;
+
+  apolloClient.mutate({
+    mutation,
+    variables: {
+      email: this.email,
+      password: hashedPassword,
+      nom: this.nom,
+      prenom: this.prenom,
+      dateDeNaissance: this.dateDeNaissance
+    }
+  })
+  .then(response => {
+    console.log('Signup successful:', response.data.createLoginUser);
+    this.$router.push('/login');
+  })
+  .catch(error => {
+    console.error('Error on signup:', error);
+  });
+}
+
+  }
+};
+</script>
