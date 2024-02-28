@@ -2,15 +2,17 @@ import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    nom: '',
-    prenom: '',
-    dateDeNaissance: ''
+    user: null,
+    isAuthenticated: false, // Ajout pour gérer l'état de connexion
   }),
   actions: {
-    setUser(nom, prenom, dateDeNaissance) {
-      this.nom = nom;
-      this.prenom = prenom;
-      this.dateDeNaissance = dateDeNaissance;
-    }
-  }
+    setUser(userData) {
+      this.user = userData;
+      this.isAuthenticated = true; // L'utilisateur est considéré comme authentifié
+    },
+    logout() {
+      this.user = null;
+      this.isAuthenticated = false; // L'utilisateur n'est plus authentifié
+    },
+  },
 });
