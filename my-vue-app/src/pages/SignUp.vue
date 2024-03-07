@@ -36,7 +36,6 @@ export default {
 
     const signup = async () => {
       const hashedPassword = SHA256(password.value).toString();
-      console.log("Hashed Password:", hashedPassword); // Debugging: Check hashed password
 
       const mutation = gql`
         mutation SignupUser($email: String!, $password: String!, $nom: String!, $prenom: String!, $dateDeNaissance: Date!) {

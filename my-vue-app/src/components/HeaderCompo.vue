@@ -1,12 +1,16 @@
 <template>
   <nav>
+    <div class="header-links">
       <router-link to="/">Accueil</router-link>
-      <router-link to="/login">Login</router-link>
-      <router-link to="/principal">PM</router-link>
+      <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
+      <router-link v-if="isAuthenticated" to="/logout" @click="logout">Logout</router-link>
+      <router-link to="/principal">Principal</router-link>
       <router-link to="/contact">Contact</router-link>
-      <header v-if="user.isAuthenticated">
-        <span>{{ user.nom }} {{ user.prenom }} - Âge: {{ userAge }}</span>
-      </header>
+    </div>
+    <header v-if="isAuthenticated" class="user-header">
+      <span class="user-greeting">Bonjour {{ user.nom }} {{ user.prenom }} !</span>
+      <span class="user-age">({{ calculateAge(user.dateDeNaissance) }} ans)</span>
+    </header>
   </nav>
 </template>
 
@@ -16,29 +20,64 @@ import { computed } from 'vue';
 
 export default {
   setup() {
-    const user = useUserStore();
+    const userStore = useUserStore();
+    const isAuthenticated = computed(() => userStore.isAuthenticated);
 
-    const userAge = computed(() => {
-      console.log("Calculating age for date of birth:", user.dateDeNaissance);
-      if(user.dateDeNaissance) {
-        const birthDate = new Date(user.dateDeNaissance);
-        const today = new Date();
-        console.log("Today's date:", today); // Debug: log today's date
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-          age--;
-        }
-        console.log("Calculated age:", age);
-        return age;
-      } else {
-        console.log("Date of birth is missing");
+    const calculateAge = (dateDeNaissance) => {
+      const birthDate = new Date(dateDeNaissance);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
       }
-      return '';
-    });
+      return age;
+    };
 
-    return { user, userAge };
+    const logout = () => {
+      userStore.logout();
+      router.push('/login');
+    };
+
+    return { user: userStore.user, isAuthenticated, calculateAge, logout };
   },
 };
 </script>
 
+<style>
+.header-links {
+  padding: 0%;
+  margin : -30px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header-links a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;  
+  font-size: 20px;
+}
+
+.user-header {
+  padding: 20px;
+  margin-top: -50px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.user-greeting {
+  padding: 0%;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.user-age {
+  padding: 0;
+  display: block;
+  font-size: 16px;
+  margin-top: 10px;
+}
+</style>

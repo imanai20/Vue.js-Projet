@@ -1,18 +1,21 @@
+// Assuming this content is in your userStore.js
 import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    user: null,
-    isAuthenticated: false, // Ajout pour gérer l'état de connexion
+    user: JSON.parse(localStorage.getItem('user')) || null,
+    isAuthenticated: !!localStorage.getItem('user'),
   }),
   actions: {
-    setUser(userData) {
-      this.user = userData;
-      this.isAuthenticated = true; // L'utilisateur est considéré comme authentifié
+    setUser(userDetails) {
+      this.user = userDetails;
+      this.isAuthenticated = true;
+      localStorage.setItem('user', JSON.stringify(userDetails));
     },
     logout() {
       this.user = null;
-      this.isAuthenticated = false; // L'utilisateur n'est plus authentifié
+      this.isAuthenticated = false;
+      localStorage.removeItem('user');
     },
   },
 });
