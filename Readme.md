@@ -35,3 +35,11 @@ Cette application d'achat est une plateforme simple développée en utilisant le
 1. Clonez le dépôt sur votre machine locale.
     ```bash
     git clone https://github.com/imanai20/projet_vue
+    ```
+
+2. Installez les dépendances :
+    ```bash
+    npm install vite
+    npm create vite@latest
+    ```
+
