@@ -28,12 +28,13 @@
                 </div>
             </div>
         </div>
-        <cart-sidebar-component
-            :cart-items="cartItems"
-            :is-open="isCartOpen"
-            @remove-from-cart="removeItemFromCart"
-            @checkout="proceedToCheckout"
+                <cart-sidebar-component
+        :cart-items="cartItems"
+        :is-open="isCartOpen"
+        @remove-from-cart="removeItemFromCart"
+        @checkout="proceedToCheckout"
         />
+
         <div class="cart-icon" @click="toggleCart">
             <i class="fas fa-shopping-cart"></i>
         </div>
@@ -86,8 +87,9 @@ export default {
             }
         },
         toggleCart() {
-            this.isCartOpen = !this.isCartOpen;
-        },
+    this.isCartOpen = !this.isCartOpen;
+},
+
         addItemToCart(item) {
             if (!this.userStore.isAuthenticated) {
                 alert('Please log in to add items to the cart.');
@@ -108,8 +110,7 @@ export default {
                 alert('Please log in to proceed to checkout.');
                 return;
             }
-            // Add logic to navigate to payment page or payment process here.
-            this.toggleCart(); // Close the cart
+            this.toggleCart();
         }
     }
 };

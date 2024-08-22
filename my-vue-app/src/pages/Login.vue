@@ -24,7 +24,7 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from '../stores/userStore';
 import apolloClient from '../apollo/apollo-client';
 import gql from 'graphql-tag';
-import { SHA256 } from 'crypto-js'; // Import the SHA256 function
+import { SHA256 } from 'crypto-js'; 
 
 export default {
   setup() {
@@ -47,14 +47,14 @@ export default {
 }
       `;
 
-      const hashedPassword = SHA256(password.value).toString(); // Hash the password
+      const hashedPassword = SHA256(password.value).toString();
 
       try {
         const response = await apolloClient.query({
           query: LOGIN_QUERY,
           variables: {
             email: email.value,
-            password: hashedPassword, // send hashed password
+            password: hashedPassword,
           },
         });
 

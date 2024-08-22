@@ -56,13 +56,13 @@ export default {
             dateDeNaissance: dateDeNaissance.value
           }
         });
-        console.log('Signup successful:', response.data.createLoginUser); // Debugging: Successful signup
+        console.log('Signup successful:', response.data.createLoginUser);
         const userStore = useUserStore();
         userStore.setUser(email.value, nom.value, prenom.value, dateDeNaissance.value);
-        console.log("User stored:", userStore.$state); // Debugging: Check stored user data
+        console.log("User stored:", userStore.$state);
         router.push('/login');
       } catch (error) {
-        console.error('Error on signup:', error); // Debugging: Catch and log any errors
+        console.error('Error on signup:', error);
       }
     };
 
