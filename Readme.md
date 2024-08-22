@@ -27,8 +27,8 @@ Cette application d'achat est une plateforme simple développée en utilisant le
 ## Technologies Utilisées
 
 - **Vue.js**: Framework JavaScript moderne pour la construction d'interfaces utilisateur.
-- **Vue Router**: Gestion de la navigation au sein de l'application.
-- **Pinia**: Gestion de l'état de l'application avec un store centralisé.
+- **GraphQL avec Hygraph** : pour la gestion des données, avec une API GraphQL permettant de récupérer et manipuler efficacement les données depuis la base de données.
+- **Apollo Client** : pour l'interaction avec l'API GraphQL.
   
 ## Installation
 
